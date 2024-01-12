@@ -178,15 +178,21 @@ sudo apt -y install rdesktop
 
 This command is used when you do not have the ssh .config file configured.
 
-> ssh -L 10001:systopia_node:10001 your_cwl_user@remote.cs.ubc.ca 
+```
+ssh -L 10001:systopia_node:10001 your_cwl_user@remote.cs.ubc.ca 
+```
 
 This command is used when you do have the ssh .config file configured.
 
-> ssh -L 10001:systopia_node:10001 csremote 
+```
+ssh -L 10001:systopia_node:10001 csremote 
+```
 
 ###  Access the VM
 
-> rdesktop -a 16 -N localhost:10001
+```
+rdesktop -a 16 -N localhost:10001
+```
 
 ### Install the VM
 
@@ -444,7 +450,7 @@ After:
 Add a hold to the packages to prevent upgrades.
 
 ```
-> sudo apt-mark hold kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
 ```
 
 
@@ -483,6 +489,7 @@ network:
         search: []
   version: 2
 </pre>
+
 > [!WARNING]
 > Your VM's bridge IP address may be different. So, add your values!
 
@@ -640,16 +647,22 @@ You can further add more nodes with the same join command. All further managemen
 
 Clone the repository.
 
-> git clone https://github.com/GoogleCloudPlatform/microservices-demo.git
+```
+git clone https://github.com/GoogleCloudPlatform/microservices-demo.git
+```
 
 Deploy Online Boutique to the cluster.
 
-> kubectl apply -f ./release/kubernetes-manifests.yaml
-   
+```
+kubectl apply -f ./release/kubernetes-manifests.yaml
+```
+
 Wait for the pods to be ready.
 
-> kubectl get pods
- 
+```
+kubectl get pods
+```
+
 After a few minutes, you should see the Pods in a Running state:
 
 <pre>
@@ -673,19 +686,25 @@ shippingservice-6ccc89f8fd-v686r         1/1     Running   0          2m58s
 #### Install Helm
 
 Download the Helm Version
-> wget -c https://get.helm.sh/helm-v3.13.3-linux-amd64.tar.gz -O - | tar -xz
+
+```
+wget -c https://get.helm.sh/helm-v3.13.3-linux-amd64.tar.gz -O - | tar -xz
+```
 
 Find the helm binary in the unpacked directory and move it to its desired destination.
 
-> mv linux-amd64/helm /usr/local/bin/helm
-
+```
+mv linux-amd64/helm /usr/local/bin/helm
+```
 From there, you should be able to run the client and add the stable repo: helm help.
 
 #### Install PVC supported
 
 **Setup helm repository**
 
-> helm repo add openebs https://openebs.github.io/charts
+```
+helm repo add openebs https://openebs.github.io/charts
+```
 
 **Install OpenEBS helm chart with default values**
 
@@ -719,7 +738,9 @@ openebs-ndm-9gr4l                              1/1     Running   0          2d5h
 
 **Patch the openebs storageclass to the local server.**
 
-> kubectl patch storageclass openebs-hostpath -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+```
+kubectl patch storageclass openebs-hostpath -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+```
 
 #### Deploy TrainTicket
 
@@ -732,7 +753,9 @@ cd train-ticket/
 
 Deploy the application
 
-> make deploy DeployArgs="--with-tracing --with-monitoring"
+```
+make deploy DeployArgs="--with-tracing --with-monitoring"
+```
 
 Run kubectl get pods to see pods are in a ready state.
 
